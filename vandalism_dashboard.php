@@ -16,7 +16,7 @@ $(function() {
 });
 </script>
 <div style="padding: 3em;">
-<form action="/dexbot/tools/vandalism_dashboard.php">
+<form action="index.php">
   <div class="ui fluid input">
   <input style="margin-bottom: 0.5em" type="text" name="lang" <?php
   if ( isset($_REQUEST['lang']) && $_REQUEST['lang'] ) {
