@@ -59,7 +59,7 @@ if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
 		$limit = 50;
 	}
 	$limit = addslashes( (string)min( [ $limit, 500 ] ) );
-	$dbmycnf = parse_ini_file("../../replica.my.cnf");
+	$dbmycnf = parse_ini_file("../replica.my.cnf");
 	$dbuser = $dbmycnf['user'];
 	$dbpass = $dbmycnf['password'];
 	unset($dbmycnf);
