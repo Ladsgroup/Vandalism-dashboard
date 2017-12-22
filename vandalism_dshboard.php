@@ -49,6 +49,17 @@ $(function() {
   <button type="submit" class="ui primary button">Search</button>
 </form>
 <?php
+
+function userlink( $username ) {
+	$anonymousPattern = '/^\d+\.\d+\.\d+\.\d+|[0-9a-f]+(?::[0-9a-f]*)+$/i';
+	if ( preg_match( $anonymousPattern, $username ) ) {
+		$page = "Special:Contributions/{$username}";
+	} else {
+		$page = "User:{$username}";
+	}
+	return "https://www.wikidata.org/wiki/${page}";
+}
+
 if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
     $_REQUEST['description'] !== 'off' || isset( $_REQUEST['labels'] ) || isset($_REQUEST['sitelinks'] )
 ) ) {
@@ -117,7 +128,8 @@ if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
 		if ( $damagingScore > 0.983 ) {
 			$class = 'very-likely-damaging';
 		}
-		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'}>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$title}</a></td><td><a href=https://www.wikidata.org/wiki/User:{$username} target='_blank'}>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>";
+		$userlink = userlink( $username );
+		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'}>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$title}</a></td><td><a href={$userlink} target='_blank'}>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>";
 	}
 } else {
     echo '<div class="ui negative message">
