@@ -3,7 +3,6 @@ require_once( 'header.php' );
 error_reporting(E_ERROR|E_CORE_ERROR|E_COMPILE_ERROR); // E_ALL|
 ini_set('display_errors', 'On');
 ?>
-</div>
 <style>
 tr.probably-damaging {background-color: #fef7e6;}
 tr.very-likely-damaging {background-color: #fee7e6;}
