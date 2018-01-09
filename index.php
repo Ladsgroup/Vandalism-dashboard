@@ -19,7 +19,7 @@ $(function() {
   <div class="ui fluid input">
   <input style="margin-bottom: 0.5em" type="text" name="lang" <?php
   if ( isset($_REQUEST['lang']) && $_REQUEST['lang'] ) {
-	echo 'value="' . $_REQUEST['lang'];
+	echo 'value="' . htmlspecialchars( $_REQUEST['lang'] );
   } else
 	echo 'placeholder="Enter language ISO code e.g. fa';
 ?>"></div>
