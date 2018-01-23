@@ -117,8 +117,8 @@ if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
 		$id = $row['rc_this_oldid'];
 		$username = $row['rc_user_text'];
 		$title = $row['rc_title'];
-		$summary = $row['rc_comment'];
-		$label = $termDictionary[$row['rc_title']];
+		$summary = htmlspecialchars( $row['rc_comment'] );
+		$label = htmlspecialchars( $termDictionary[$row['rc_title']] );
 		$damagingScore = $oresDictionary[$row['rc_this_oldid']];
 		$class = 'okay';
 		if ( $damagingScore > 0.72 ) {
