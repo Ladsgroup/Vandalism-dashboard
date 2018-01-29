@@ -2,6 +2,12 @@
 require_once( 'header.php' );
 error_reporting(E_ERROR|E_CORE_ERROR|E_COMPILE_ERROR); // E_ALL|
 ini_set('display_errors', 'On');
+
+$hasFormData = isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
+    isset( $_REQUEST['description'] ) ||
+    isset( $_REQUEST['labels'] ) ||
+    isset( $_REQUEST['sitelinks'] )
+);
 ?>
 <style>
 tr.probably-damaging {background-color: #fef7e6;}
@@ -25,7 +31,7 @@ $(function() {
 ?>"></div>
 <div class="ui checkbox">
   <input type="checkbox" name="description" <?php
-  if ( $_REQUEST['description'] !== 'off' ) {
+  if ( isset( $_REQUEST['description'] ) || !$hasFormData ) {
       echo 'checked';
   }?>>
   <label>Changes in descriptions</label>
@@ -59,9 +65,7 @@ function userlink( $username ) {
 	return "https://www.wikidata.org/wiki/${page}";
 }
 
-if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
-    $_REQUEST['description'] !== 'off' || isset( $_REQUEST['labels'] ) || isset($_REQUEST['sitelinks'] )
-) ) {
+if ( $hasFormData ) {
 	$lang = mysql_escape_string ( $_REQUEST['lang'] );
 	if (isset($_REQUEST['limit']) && $_REQUEST['limit']) {
 		$limit = (int)$_REQUEST['limit'];
@@ -77,7 +81,7 @@ if (isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
 	$dbname = "wikidatawiki_p";
 	$db = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8', $dbuser, $dbpass);
 	$conditions = [];
-	if ( $_REQUEST['description'] !== 'off' ) {
+	if ( isset( $_REQUEST['description'] ) ) {
 		$conditions[] = "rc_comment REGEXP 'wbsetdescription\-(add|set|remove)...{$lang}'";
 	}
 	if ( isset($_REQUEST['labels'] ) ) {
