@@ -28,7 +28,7 @@ $(function() {
 <form action="<?php echo basename( __FILE__ ); ?>">
   <label for="lang">Language code(s)</label>
   <div class="ui fluid input">
-  <input style="margin-bottom: 0.5em" type="text" name="lang" id="lang" placeholder="en,fa,nl-informal" <?php
+  <input style="margin-bottom: 0.5em" type="text" name="lang" id="lang" required placeholder="en,fa,nl-informal" <?php
   if ( $lang !== '' ) {
 	echo 'value="' . htmlspecialchars( $lang ) . '"';
   }
