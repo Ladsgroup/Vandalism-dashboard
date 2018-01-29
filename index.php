@@ -115,13 +115,15 @@ if ( $hasFormData ) {
 	foreach ($result as $row) {
 		$revisionIds[] = $row['rc_this_oldid'];
 	}
-	// TODO: Cache
-	$damagingId = $db->query("select oresm_id from ores_model where oresm_name = 'damaging' and oresm_is_current = 1")->fetchAll()[0]['oresm_id'];
-	$oresSql = "select oresc_rev, oresc_probability from ores_classification where oresc_model = {$damagingId} AND oresc_rev in (" . implode(", ", $revisionIds) . ")";
-	$oresResult = $db->query($oresSql)->fetchAll();
-	$oresDictionary = [];
-	foreach ($oresResult as $row) {
-		$oresDictionary[$row['oresc_rev']] = $row['oresc_probability'];
+	if ( $revisionIds !== [] ) {
+		// TODO: Cache
+		$damagingId = $db->query("select oresm_id from ores_model where oresm_name = 'damaging' and oresm_is_current = 1")->fetchAll()[0]['oresm_id'];
+		$oresSql = "select oresc_rev, oresc_probability from ores_classification where oresc_model = {$damagingId} AND oresc_rev in (" . implode(", ", $revisionIds) . ")";
+		$oresResult = $db->query($oresSql)->fetchAll();
+		$oresDictionary = [];
+		foreach ($oresResult as $row) {
+			$oresDictionary[$row['oresc_rev']] = $row['oresc_probability'];
+		}
 	}
 	echo '<table class="ui sortable celled table"><thead><tr><th>Edit ID</th><th>Entity ID</th><th>Username</th><th>Entity title</th><th>Edit summary</th><th>ORES damaging score</th></tr></thead><tbody>';
 	foreach ($result as $row) {
