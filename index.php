@@ -15,7 +15,7 @@ $(function() {
 });
 </script>
 <div style="padding: 3em;">
-<form action="index.php">
+<form action="<?php echo basename( __FILE__ ); ?>">
   <div class="ui fluid input">
   <input style="margin-bottom: 0.5em" type="text" name="lang" <?php
   if ( isset($_REQUEST['lang']) && $_REQUEST['lang'] ) {
