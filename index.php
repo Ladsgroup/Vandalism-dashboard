@@ -27,31 +27,31 @@ $(function() {
 <div style="padding: 3em;">
 <form action="<?php echo basename( __FILE__ ); ?>">
   <div class="ui fluid input">
-  <input style="margin-bottom: 0.5em" type="text" name="lang" placeholder="en,fa,nl-informal" <?php
+  <input style="margin-bottom: 0.5em" type="text" name="lang" id="lang" placeholder="en,fa,nl-informal" <?php
   if ( $lang !== '' ) {
 	echo 'value="' . htmlspecialchars( $lang ) . '"';
   }
 ?>></div>
 <div class="ui checkbox">
-  <input type="checkbox" name="description" <?php
+  <input type="checkbox" name="description" id="description" <?php
   if ( isset( $_REQUEST['description'] ) || !$hasFormData ) {
       echo 'checked';
   }?>>
-  <label>Changes in descriptions</label>
+  <label for="description">Changes in descriptions</label>
 </div>
 <div class="ui checkbox">
-  <input type="checkbox" name="labels" <?php
+  <input type="checkbox" name="labels" id="labels" <?php
   if ( isset($_REQUEST['labels'] ) ) {
       echo 'checked';
   }?>>
-  <label>Changes in labels and aliases</label>
+  <label for="labels">Changes in labels and aliases</label>
 </div>
 <div class="ui checkbox">
-  <input type="checkbox" name="sitelinks" <?php
+  <input type="checkbox" name="sitelinks" id="sitelinks" <?php
   if ( isset($_REQUEST['sitelinks'] ) ) {
       echo 'checked';
   }?>>
-  <label>Sitelink removals</label>
+  <label for="sitelinks">Sitelink removals</label>
 </div>
 </br >
   <button type="submit" class="ui primary button">Search</button>
