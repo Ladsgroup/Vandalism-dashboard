@@ -3,7 +3,11 @@ require_once( 'header.php' );
 error_reporting(E_ERROR|E_CORE_ERROR|E_COMPILE_ERROR); // E_ALL|
 ini_set('display_errors', 'On');
 
-$hasFormData = isset( $_REQUEST['lang'] ) && $_REQUEST['lang'] && (
+$lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
+preg_match_all( '/[a-z-]+/', $lang, $matches );
+$languages = $matches[0];
+
+$hasFormData = $languages !== [] && (
     isset( $_REQUEST['description'] ) ||
     isset( $_REQUEST['labels'] ) ||
     isset( $_REQUEST['sitelinks'] )
@@ -24,10 +28,10 @@ $(function() {
 <form action="<?php echo basename( __FILE__ ); ?>">
   <div class="ui fluid input">
   <input style="margin-bottom: 0.5em" type="text" name="lang" <?php
-  if ( isset($_REQUEST['lang']) && $_REQUEST['lang'] ) {
-	echo 'value="' . htmlspecialchars( $_REQUEST['lang'] );
+  if ( $lang !== '' ) {
+	echo 'value="' . htmlspecialchars( $lang );
   } else
-	echo 'placeholder="Enter language ISO code e.g. fa';
+	echo 'placeholder="en,fa,nl-informal';
 ?>"></div>
 <div class="ui checkbox">
   <input type="checkbox" name="description" <?php
@@ -65,8 +69,11 @@ function userlink( $username ) {
 	return "https://www.wikidata.org/wiki/${page}";
 }
 
+function languagesCommentRegexp( $regexpPrefix, $languages ) {
+	return "rc_comment REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")'";
+}
+
 if ( $hasFormData ) {
-	$lang = mysql_escape_string ( $_REQUEST['lang'] );
 	if (isset($_REQUEST['limit']) && $_REQUEST['limit']) {
 		$limit = (int)$_REQUEST['limit'];
 	} else {
@@ -82,14 +89,14 @@ if ( $hasFormData ) {
 	$db = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8', $dbuser, $dbpass);
 	$conditions = [];
 	if ( isset( $_REQUEST['description'] ) ) {
-		$conditions[] = "rc_comment REGEXP 'wbsetdescription\-(add|set|remove)...{$lang}'";
+		$conditions[] = languagesCommentRegexp( 'wbsetdescription-(add|set|remove)', $languages );
 	}
 	if ( isset($_REQUEST['labels'] ) ) {
-		$conditions[] = "rc_comment REGEXP 'wbsetlabel\-(add|set|remove)...{$lang}'";
-		$conditions[] = "rc_comment REGEXP 'wbsetaliases\-(add|set|remove|update)...{$lang}'";
+		$conditions[] = languagesCommentRegexp( 'wbsetlabel-(add|set|remove)', $languages );
+		$conditions[] = languagesCommentRegexp( 'wbsetaliases-(add|set|remove|update)', $languages );
 	}
 	if ( isset($_REQUEST['sitelinks'] ) ) {
-		$conditions[] = "rc_comment REGEXP 'wbsetsitelink\-remove...{$lang}'";
+		$conditions[] = languagesCommentRegexp( 'wbsetsitelink-remove', $languages );
 	}
 	$where = '(' . implode( ' OR ', $conditions ) . ')';
     $sql = "select rc_this_oldid, rc_title, rc_user_text, rc_comment from recentchanges where {$where} and rc_patrolled = 0 order by rc_id desc limit {$limit};";
@@ -98,7 +105,7 @@ if ( $hasFormData ) {
 	foreach ($result as $row) {
 		$entities[] = $row['rc_title'];
 	}
-	$termSql = "select term_full_entity_id, term_text from wb_terms where term_language = '{$lang}' AND term_type = 'label' AND term_full_entity_id in ('" . implode("', '", $entities) . "')";
+	$termSql = "select term_full_entity_id, term_text from wb_terms where term_language = '{$languages[0]}' AND term_type = 'label' AND term_full_entity_id in ('" . implode("', '", $entities) . "')";
 	$termResult = $db->query($termSql)->fetchAll();
 	$termDictionary = [];
 	foreach ($termResult as $row) {
