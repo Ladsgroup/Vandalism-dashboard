@@ -64,6 +64,7 @@ function userlink( $username ) {
 	if ( preg_match( $anonymousPattern, $username ) ) {
 		$page = "Special:Contributions/{$username}";
 	} else {
+		$username = strtr( $username, ' ', '_' );
 		$page = "User:{$username}";
 	}
 	return "https://www.wikidata.org/wiki/${page}";
