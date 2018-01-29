@@ -27,12 +27,11 @@ $(function() {
 <div style="padding: 3em;">
 <form action="<?php echo basename( __FILE__ ); ?>">
   <div class="ui fluid input">
-  <input style="margin-bottom: 0.5em" type="text" name="lang" <?php
+  <input style="margin-bottom: 0.5em" type="text" name="lang" placeholder="en,fa,nl-informal" <?php
   if ( $lang !== '' ) {
-	echo 'value="' . htmlspecialchars( $lang );
-  } else
-	echo 'placeholder="en,fa,nl-informal';
-?>"></div>
+	echo 'value="' . htmlspecialchars( $lang ) . '"';
+  }
+?>></div>
 <div class="ui checkbox">
   <input type="checkbox" name="description" <?php
   if ( isset( $_REQUEST['description'] ) || !$hasFormData ) {
