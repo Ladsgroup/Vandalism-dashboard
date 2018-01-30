@@ -4,7 +4,7 @@ error_reporting(E_ERROR|E_CORE_ERROR|E_COMPILE_ERROR); // E_ALL|
 ini_set('display_errors', 'On');
 
 $lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
-preg_match_all( '/[a-z-]+/', $lang, $matches );
+preg_match_all( '/[a-z-]+/', strtolower( $lang ), $matches );
 $languages = $matches[0];
 
 $hasFormData = $languages !== [] && (
