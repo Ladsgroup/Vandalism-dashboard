@@ -100,7 +100,10 @@ if ( $hasFormData ) {
 		$conditions[] = languagesCommentRegexp( 'wbsetsitelink-remove', $languages );
 	}
 	$where = '(' . implode( ' OR ', $conditions ) . ')';
-    $sql = "select rc_this_oldid, rc_title, rc_user_text, rc_comment from recentchanges where {$where} and rc_patrolled = 0 order by rc_id desc limit {$limit};";
+	$sql = "SELECT rc_this_oldid, rc_title, rc_user_text, rc_comment " .
+		"FROM recentchanges " .
+		"WHERE {$where} AND rc_patrolled = 0 " .
+		"ORDER BY rc_id desc LIMIT {$limit};";
 	$result = $db->query($sql)->fetchAll();
 	$entities = [];
 	foreach ($result as $row) {
