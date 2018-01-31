@@ -33,27 +33,21 @@ $(function() {
 	echo 'value="' . htmlspecialchars( $lang ) . '"';
   }
 ?>></div>
+<?php
+function checkbox( $name, $description, $checked ) {
+	$checkedAttribute = $checked ? 'checked' : '';
+	echo <<< EOF
 <div class="ui checkbox">
-  <input type="checkbox" name="description" id="description" <?php
-  if ( isset( $_REQUEST['description'] ) || !$hasFormData ) {
-      echo 'checked';
-  }?>>
-  <label for="description">Changes in descriptions</label>
+  <input type="checkbox" name="$name" id="$name" $checkedAttribute>
+  <label for="$name">$description</label>
 </div>
-<div class="ui checkbox">
-  <input type="checkbox" name="labels" id="labels" <?php
-  if ( isset($_REQUEST['labels'] ) ) {
-      echo 'checked';
-  }?>>
-  <label for="labels">Changes in labels and aliases</label>
-</div>
-<div class="ui checkbox">
-  <input type="checkbox" name="sitelinks" id="sitelinks" <?php
-  if ( isset($_REQUEST['sitelinks'] ) ) {
-      echo 'checked';
-  }?>>
-  <label for="sitelinks">Sitelink removals</label>
-</div>
+EOF;
+}
+
+checkbox( 'description', 'Changes in descriptions', isset( $_REQUEST['description'] ) || !$hasFormData );
+checkbox( 'labels', 'Changes in labels and aliases', isset( $_REQUEST['labels'] ) );
+checkbox( 'sitelinks', 'Sitelink removals', isset( $_REQUEST['sitelinks'] ) );
+?>
 </br >
   <button type="submit" class="ui primary button">Search</button>
 </form>
