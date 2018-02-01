@@ -128,7 +128,7 @@ if ( $hasFormData ) {
 		$id = $row['rc_this_oldid'];
 		$username = $row['rc_user_text'];
 		$title = $row['rc_title'];
-		$summary = htmlspecialchars( $row['rc_comment'] );
+		$summary = parseComment( $row['rc_comment'] );
 		$label = htmlspecialchars( $termDictionary[$row['rc_title']] );
 		$damagingScore = $oresDictionary[$row['rc_this_oldid']];
 		$class = 'okay';
@@ -149,3 +149,42 @@ if ( $hasFormData ) {
     </div>
     <p>You need to enable at least one case</p></div>';
 }
+
+function parseComment( $comment ) {
+	$original = htmlspecialchars( $comment, ENT_QUOTES | ENT_HTML401, 'UTF-8' );
+
+	$actions = [
+		"add"    => "Added",
+		"set"    => "Changed",
+		"remove" => "Removed",
+		"update" => "Changed",
+	];
+
+	$types = [
+		"wbsetdescription" => ["description", "description"],
+		"wbsetaliases"     => ["alias", "aliases"],
+		"wbsetlabel"       => ["label", "labels"],
+		"wbsetsitelink"    => ["sitelink", "sitelinks"],
+	];
+
+	if ( !preg_match( '%/\*\s*([a-z]+)-([a-z]+):(\d+)\|([\w]+)\s*\*/(.+)?%', trim( $comment ), $match ) ) {
+		return $original;
+	}
+
+	if ( isset( $actions[$match[2]] ) ) {
+		$action = $actions[$match[2]];
+	}
+	$count = '';
+	if ( isset( $types[$match[1]] ) ) {
+		$type = $match[3] > 1 ? $types[$match[1]][1] : $types[$match[1]][0];
+		$count = $match[3] > 1 ? " $match[3]" : '';
+	}
+	$comment = htmlspecialchars( trim( $match[5] ) );
+
+	if ( !empty( $action ) && !empty( $type ) ) {
+		return "<span title=\"$original\">$action{$count} $type in <i>{$match[4]}</i>: <b>$comment</b></span>";
+	}
+
+	return $original;
+}
+

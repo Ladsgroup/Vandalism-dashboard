@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="Description" content="Tool to monitor edits in Wikidata in a proper way">
 
-<link rel="stylesheet" type="text/css" href="/dexbot/tools/semantic/dist/semantic.min.css">
-<script src="/dexbot/tools/jquery.min.js"></script>
-<script src="/dexbot/tools/semantic/tablesort.min.js"></script>
-<script src="/dexbot/tools/semantic/dist/semantic.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.css">
+<script src="https://tools.wmflabs.org/dexbot/tools/jquery.min.js"></script>
+<script src="https://tools.wmflabs.org/dexbot/tools/semantic/tablesort.min.js"></script>
+<script src="https://tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.js"></script>
 <body>
   <div class="main nav">
     <div class="ui inverted main menu">
@@ -18,7 +18,7 @@
           <div class="title item">
             <b>Wikidata vandalism dashboard</b>
           </div><a href="/wdvd/" class="launch item">Home</a>
-                <a href="/" class="launch item">Labs</a>
+                <a href="https://tools.wmflabs.org/" class="launch item">Labs</a>
         </div>
 
         <div class="right menu">
