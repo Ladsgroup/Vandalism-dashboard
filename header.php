@@ -13,6 +13,7 @@
 <script src="//tools.wmflabs.org/dexbot/tools/jquery.min.js"></script>
 <script src="//tools.wmflabs.org/dexbot/tools/semantic/tablesort.min.js"></script>
 <script src="//tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.js"></script>
+</head>
 <body>
   <div class="main nav">
     <div class="ui inverted main menu">
