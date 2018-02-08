@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="Description" content="Tool to monitor edits in Wikidata in a proper way">
 
+<script src="https://tools.wmflabs.org/wdvd/https.js"></script>
+
 <link rel="stylesheet" type="text/css" href="https://tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.css">
 <script src="https://tools.wmflabs.org/dexbot/tools/jquery.min.js"></script>
 <script src="https://tools.wmflabs.org/dexbot/tools/semantic/tablesort.min.js"></script>
