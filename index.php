@@ -188,3 +188,7 @@ function parseComment( $comment ) {
 	return $original;
 }
 
+?>
+</div>
+</body>
+</html>
