@@ -9,10 +9,10 @@
 
 <script src="https://tools.wmflabs.org/wdvd/https.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.css">
-<script src="https://tools.wmflabs.org/dexbot/tools/jquery.min.js"></script>
-<script src="https://tools.wmflabs.org/dexbot/tools/semantic/tablesort.min.js"></script>
-<script src="https://tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.css">
+<script src="//tools.wmflabs.org/dexbot/tools/jquery.min.js"></script>
+<script src="//tools.wmflabs.org/dexbot/tools/semantic/tablesort.min.js"></script>
+<script src="//tools.wmflabs.org/dexbot/tools/semantic/dist/semantic.min.js"></script>
 <body>
   <div class="main nav">
     <div class="ui inverted main menu">
@@ -21,7 +21,7 @@
           <div class="title item">
             <b>Wikidata vandalism dashboard</b>
           </div><a href="/wdvd/" class="launch item">Home</a>
-                <a href="https://tools.wmflabs.org/" class="launch item">Labs</a>
+                <a href="//tools.wmflabs.org/" class="launch item">Labs</a>
         </div>
 
         <div class="right menu">
