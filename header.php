@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
 
 <title>Wikidata vandalism dashboard</title>
