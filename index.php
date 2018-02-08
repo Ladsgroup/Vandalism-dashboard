@@ -48,7 +48,7 @@ checkbox( 'description', 'Changes in descriptions', isset( $_REQUEST['descriptio
 checkbox( 'labels', 'Changes in labels and aliases', isset( $_REQUEST['labels'] ) );
 checkbox( 'sitelinks', 'Sitelink removals', isset( $_REQUEST['sitelinks'] ) );
 ?>
-</br >
+<br>
   <button type="submit" class="ui primary button">Search</button>
 </form>
 <?php
