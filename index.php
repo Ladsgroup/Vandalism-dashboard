@@ -167,7 +167,7 @@ function parseComment( $comment ) {
 		"wbsetsitelink"    => ["sitelink", "sitelinks"],
 	];
 
-	if ( !preg_match( '%/\*\s*([a-z]+)-([a-z]+):(\d+)\|([\w]+)\s*\*/(.+)?%', trim( $comment ), $match ) ) {
+	if ( !preg_match( '%/\*\s*([a-z]+)-([a-z]+):(\d+)\|([\w-]+)\s*\*/(.+)?%', trim( $comment ), $match ) ) {
 		return $original;
 	}
 
