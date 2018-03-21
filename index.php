@@ -124,6 +124,7 @@ if ( $hasFormData ) {
 		}
 	}
 	echo '<table class="ui sortable celled table"><thead><tr><th>Edit ID</th><th>Entity ID</th><th>Username</th><th>Entity title</th><th>Edit summary</th><th>ORES damaging score</th></tr></thead><tbody>';
+	echo "\n";
 	foreach ($result as $row) {
 		$id = $row['rc_this_oldid'];
 		$username = $row['rc_user_text'];
@@ -139,8 +140,9 @@ if ( $hasFormData ) {
 			$class = 'very-likely-damaging';
 		}
 		$userlink = userlink( $username );
-		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$title}</a></td><td><a href={$userlink} target='_blank'>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>";
+		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$title}</a></td><td><a href={$userlink} target='_blank'>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>\n";
 	}
+	echo "</table>\n";
 } else {
     echo '<div class="ui negative message">
     <i class="close icon"></i>
