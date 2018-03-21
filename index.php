@@ -139,7 +139,7 @@ if ( $hasFormData ) {
 			$class = 'very-likely-damaging';
 		}
 		$userlink = userlink( $username );
-		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'}>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$title}</a></td><td><a href={$userlink} target='_blank'}>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'}>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>";
+		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$title}</a></td><td><a href={$userlink} target='_blank'>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>";
 	}
 } else {
     echo '<div class="ui negative message">
