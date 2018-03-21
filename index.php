@@ -21,7 +21,7 @@ $hasFormData = $languages !== [] && (
 tr.probably-damaging {background-color: #fef7e6;}
 tr.very-likely-damaging {background-color: #fee7e6;}
 a {color: #36c;}
-div.checkbox {margin: 1em;}
+div.checkbox {margin: 1em; margin-left: 0;}
 </style>
 <script>
 $(function() {
