@@ -152,7 +152,6 @@ if ( $hasFormData ) {
 	echo "</table>\n";
 } else {
     echo '<div class="ui negative message">
-    <i class="close icon"></i>
     <div class="header">
      No query
     </div>
