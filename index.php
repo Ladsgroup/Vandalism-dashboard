@@ -6,7 +6,11 @@ ini_set('display_errors', 'On');
 $lang = isset( $_REQUEST['lang'] ) ? $_REQUEST['lang'] : '';
 preg_match_all( '/[a-z-]+/', strtolower( $lang ), $matches );
 $languages = $matches[0];
-
+if (isset($_REQUEST['limit']) && $_REQUEST['limit']) {
+	$limit = (int)$_REQUEST['limit'];
+} else {
+	$limit = 50;
+}
 $hasFormData = $languages !== [] && (
     isset( $_REQUEST['description'] ) ||
     isset( $_REQUEST['labels'] ) ||
@@ -26,13 +30,21 @@ $(function() {
 </script>
 <div style="padding: 3em;">
 <form action="<?php echo basename( __FILE__ ); ?>">
-  <label for="lang">Language code(s)</label>
-  <div class="ui fluid input">
+  <label for="lang">Language code(s)</label><br>
+  <div class="ui corner labeled input">
   <input style="margin-bottom: 0.5em" type="text" name="lang" id="lang" required placeholder="en,fa,nl-informal" <?php
   if ( $lang !== '' ) {
 	echo 'value="' . htmlspecialchars( $lang ) . '"';
   }
-?>></div>
+?>>
+  <div class="ui corner label">
+    <i class="asterisk icon"></i>
+  </div></div><br>
+<label for="limit">Limit</label><br>
+<div class="ui labeled input">
+  <input style="margin-bottom: 0.5em" id="limit" name="limit" type="number" min="1" max="500" required value="<?php echo htmlspecialchars( $limit ); ?>">
+</div>
+<br>
 <?php
 function checkbox( $name, $description, $checked ) {
 	$checkedAttribute = $checked ? 'checked' : '';
@@ -69,11 +81,6 @@ function languagesCommentRegexp( $regexpPrefix, $languages ) {
 }
 
 if ( $hasFormData ) {
-	if (isset($_REQUEST['limit']) && $_REQUEST['limit']) {
-		$limit = (int)$_REQUEST['limit'];
-	} else {
-		$limit = 50;
-	}
 	$limit = addslashes( (string)min( [ $limit, 500 ] ) );
 	$dbmycnf = parse_ini_file("../replica.my.cnf");
 	$dbuser = $dbmycnf['user'];
