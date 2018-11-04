@@ -77,7 +77,7 @@ function userlink( $username ) {
 }
 
 function languagesCommentRegexp( $regexpPrefix, $languages ) {
-	return "rc_comment REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")'";
+	return "comment_text REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")'";
 }
 
 if ( $hasFormData ) {
@@ -101,8 +101,8 @@ if ( $hasFormData ) {
 		$conditions[] = languagesCommentRegexp( 'wbsetsitelink-remove', $languages );
 	}
 	$where = '(' . implode( ' OR ', $conditions ) . ')';
-	$sql = "SELECT rc_this_oldid, rc_title, rc_user_text, rc_comment " .
-		"FROM recentchanges " .
+	$sql = "SELECT rc_this_oldid, rc_title, rc_user_text, comment_text " .
+		"FROM recentchanges JOIN comment ON rc_comment_id = comment_id " .
 		"WHERE {$where} AND rc_patrolled = 0 " .
 		"ORDER BY rc_id desc LIMIT {$limit};";
 	$result = $db->query($sql)->fetchAll();
@@ -136,7 +136,7 @@ if ( $hasFormData ) {
 		$id = $row['rc_this_oldid'];
 		$username = $row['rc_user_text'];
 		$title = $row['rc_title'];
-		$summary = parseComment( $row['rc_comment'] );
+		$summary = parseComment( $row['comment_text'] );
 		$label = htmlspecialchars( $termDictionary[$row['rc_title']] );
 		$damagingScore = $oresDictionary[$row['rc_this_oldid']];
 		$class = 'okay';
