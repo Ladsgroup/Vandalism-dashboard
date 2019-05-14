@@ -110,12 +110,13 @@ if ( $hasFormData ) {
 	foreach ($result as $row) {
 		$entities[] = $row['rc_title'];
 	}
-	$termSql = "select term_full_entity_id, term_text from wb_terms where term_language = '{$languages[0]}' AND term_type = 'label' AND term_full_entity_id in ('" . implode("', '", $entities) . "')";
-	$termResult = $db->query($termSql)->fetchAll();
-	$termDictionary = [];
-	foreach ($termResult as $row) {
-		$termDictionary[$row['term_full_entity_id']] = $row['term_text'];
-	}
+	$formattedEntitiesJson = file_get_contents('https://www.wikidata.org/w/api.php?' . http_build_query([
+		'action' => 'wbformatentities',
+		'ids' => implode('|', $entities),
+		'format' => 'json',
+		'formatversion' => '2',
+	]));
+	$formattedEntitiesDictionary = json_decode($formattedEntitiesJson, true)['wbformatentities'];
 	$revisionIds = [];
 	foreach ($result as $row) {
 		$revisionIds[] = $row['rc_this_oldid'];
@@ -137,7 +138,7 @@ if ( $hasFormData ) {
 		$username = $row['rc_user_text'];
 		$title = $row['rc_title'];
 		$summary = parseComment( $row['comment_text'] );
-		$label = htmlspecialchars( $termDictionary[$row['rc_title']] );
+		$formatted = $formattedEntitiesDictionary[$row['rc_title']];
 		$damagingScore = $oresDictionary[$row['rc_this_oldid']];
 		$class = 'okay';
 		if ( $damagingScore > 0.72 ) {
@@ -147,7 +148,7 @@ if ( $hasFormData ) {
 			$class = 'very-likely-damaging';
 		}
 		$userlink = userlink( $username );
-		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$title}</a></td><td><a href={$userlink} target='_blank'>{$username}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$label}</a></td><td>{$summary}</td><td>{$damagingScore}</td></tr>\n";
+		echo "<tr class={$class}><td><a href=https://www.wikidata.org/wiki/Special:Diff/{$id} target='_blank'>{$id}</a></td><td><a href=https://www.wikidata.org/wiki/{$title} target='_blank'>{$title}</a></td><td><a href={$userlink} target='_blank'>{$username}</a></td><td>{$formatted}</td><td>{$summary}</td><td>{$damagingScore}</td></tr>\n";
 	}
 	echo "</table>\n";
 } else {
