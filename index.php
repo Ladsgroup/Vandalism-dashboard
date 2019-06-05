@@ -101,8 +101,9 @@ if ( $hasFormData ) {
 		$conditions[] = languagesCommentRegexp( 'wbsetsitelink-remove', $languages );
 	}
 	$where = '(' . implode( ' OR ', $conditions ) . ')';
-	$sql = "SELECT rc_this_oldid, rc_title, rc_user_text, comment_text " .
+	$sql = "SELECT rc_this_oldid, rc_title, actor_name, comment_text " .
 		"FROM recentchanges JOIN comment ON rc_comment_id = comment_id " .
+		"JOIN actor ON rc_actor = actor_id " .
 		"WHERE {$where} AND rc_patrolled = 0 " .
 		"ORDER BY rc_id desc LIMIT {$limit};";
 	$result = $db->query($sql)->fetchAll();
@@ -135,7 +136,7 @@ if ( $hasFormData ) {
 	echo "\n";
 	foreach ($result as $row) {
 		$id = $row['rc_this_oldid'];
-		$username = $row['rc_user_text'];
+		$username = $row['actor_name'];
 		$title = $row['rc_title'];
 		$summary = parseComment( $row['comment_text'] );
 		$formatted = $formattedEntitiesDictionary[$row['rc_title']];
