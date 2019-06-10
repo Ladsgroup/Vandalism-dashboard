@@ -102,8 +102,9 @@ if ( $hasFormData ) {
 	}
 	$where = '(' . implode( ' OR ', $conditions ) . ')';
 	$sql = "SELECT rc_this_oldid, rc_title, actor_name, comment_text " .
-		"FROM recentchanges JOIN comment ON rc_comment_id = comment_id " .
-		"JOIN actor ON rc_actor = actor_id " .
+		"FROM recentchanges " .
+		"JOIN comment_recentchanges ON rc_comment_id = comment_id " .
+		"JOIN actor_recentchanges ON rc_actor = actor_id " .
 		"WHERE {$where} AND rc_patrolled = 0 " .
 		"ORDER BY rc_id desc LIMIT {$limit};";
 	$result = $db->query($sql)->fetchAll();
