@@ -77,7 +77,7 @@ function userlink( $username ) {
 }
 
 function languagesCommentRegexp( $regexpPrefix, $languages ) {
-	return "comment_text REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")(wiki)? '";
+	return "comment_text REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")(|wiki|wikisource|wikiquote|wikinews|wikibooks|wiktionary|wikiversity|wikivoyage) '";
 }
 
 if ( $hasFormData ) {
