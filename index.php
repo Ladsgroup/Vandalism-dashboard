@@ -112,13 +112,21 @@ if ( $hasFormData ) {
 	foreach ($result as $row) {
 		$entities[] = $row['rc_title'];
 	}
-	$formattedEntitiesJson = file_get_contents('https://www.wikidata.org/w/api.php?' . http_build_query([
-		'action' => 'wbformatentities',
-		'ids' => implode('|', $entities),
-		'format' => 'json',
-		'formatversion' => '2',
-	]));
-	$formattedEntitiesDictionary = json_decode($formattedEntitiesJson, true)['wbformatentities'];
+	$formattedEntitiesDictionary = [];
+	foreach ( array_chunk($entities, 50) as $entityChunks ) {
+			var_dump( implode('|', $entityChunks) );
+			$formattedEntitiesDictionary = array_merge( $formattedEntitiesDictionary,
+					json_decode(
+							file_get_contents('https://www.wikidata.org/w/api.php?' . http_build_query([
+									'action' => 'wbformatentities',
+									'ids' => implode('|', $entityChunks),
+									'format' => 'json',
+									'formatversion' => '2',
+									])
+							), true
+					)['wbformatentities']
+			);
+	}
 	$revisionIds = [];
 	foreach ($result as $row) {
 		$revisionIds[] = $row['rc_this_oldid'];
