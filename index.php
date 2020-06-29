@@ -114,7 +114,6 @@ if ( $hasFormData ) {
 	}
 	$formattedEntitiesDictionary = [];
 	foreach ( array_chunk($entities, 50) as $entityChunks ) {
-			var_dump( implode('|', $entityChunks) );
 			$formattedEntitiesDictionary = array_merge( $formattedEntitiesDictionary,
 					json_decode(
 							file_get_contents('https://www.wikidata.org/w/api.php?' . http_build_query([
