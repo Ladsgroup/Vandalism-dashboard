@@ -2,4 +2,4 @@
 # Provide default arguments for `webservice start` commands for this tool.
 backend: kubernetes
 type: php5.6
-canonical: False
+canonical: True
