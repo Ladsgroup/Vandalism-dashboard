@@ -1,5 +1,5 @@
 # Toolforge webservice template
 # Provide default arguments for `webservice start` commands for this tool.
 backend: kubernetes
-type: php5.6
+type: php7.3
 canonical: True
