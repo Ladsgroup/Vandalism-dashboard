@@ -19,7 +19,7 @@
         <div class="left menu">
           <div class="title item">
             <b>Wikidata vandalism dashboard</b>
-          </div><a href="/wdvd/" class="launch item">Home</a>
+          </div><a href="/" class="launch item">Home</a>
                 <a href="https://toolforge.org/" class="launch item">Toolforge</a>
         </div>
 
