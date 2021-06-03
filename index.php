@@ -86,7 +86,7 @@ if ( $hasFormData ) {
 	$dbuser = $dbmycnf['user'];
 	$dbpass = $dbmycnf['password'];
 	unset($dbmycnf);
-	$dbhost = "wikidatawiki.web.db.svc.eqiad.wmflabs";
+	$dbhost = "wikidatawiki.web.db.svc.wikimedia.cloud";
 	$dbname = "wikidatawiki_p";
 	$db = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8', $dbuser, $dbpass);
 	$conditions = [];
