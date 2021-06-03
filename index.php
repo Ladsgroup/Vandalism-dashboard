@@ -77,7 +77,11 @@ function userlink( $username ) {
 }
 
 function languagesCommentRegexp( $regexpPrefix, $languages ) {
-	return "comment_text REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languages ) . ")(|wiki|wikisource|wikiquote|wikinews|wikibooks|wiktionary|wikiversity|wikivoyage) '";
+	$languagePrefixes = array_map( static function ( $language ) {
+		// be-x-old for terms, be_x_old(wiki...) for sitelinks
+		return str_replace( '-', '[-_]', $language );
+	}, $languages );
+	return "comment_text REGEXP '" . $regexpPrefix . '...' . '(' . implode( '|', $languagePrefixes ) . ")(|wiki|wikisource|wikiquote|wikinews|wikibooks|wiktionary|wikiversity|wikivoyage) '";
 }
 
 if ( $hasFormData ) {
