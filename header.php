@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="Description" content="Tool to monitor edits in Wikidata in a proper way">
 
-<link rel="stylesheet" type="text/css" href="https://dexbot.toolforge.org/tools/semantic/dist/semantic.min.css">
-<script src="https://dexbot.toolforge.org/tools/jquery.min.js"></script>
-<script src="https://dexbot.toolforge.org/tools/semantic/tablesort.min.js"></script>
-<script src="https://dexbot.toolforge.org/tools/semantic/dist/semantic.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/fomantic-ui/2.9.2/semantic.min.css">
+<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>
 </head>
 <body>
   <div class="main nav">
