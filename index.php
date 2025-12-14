@@ -66,7 +66,7 @@ checkbox( 'sitelinks', 'Sitelink removals', isset( $_REQUEST['sitelinks'] ) );
 <?php
 
 function userlink( $username ) {
-	$anonymousPattern = '/^\d+\.\d+\.\d+\.\d+|[0-9a-f]+(?::[0-9a-f]*)+$/i';
+	$anonymousPattern = '/^~2.+$/i';
 	if ( preg_match( $anonymousPattern, $username ) ) {
 		$page = "Special:Contributions/{$username}";
 	} else {
