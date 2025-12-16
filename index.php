@@ -66,8 +66,7 @@ checkbox( 'sitelinks', 'Sitelink removals', isset( $_REQUEST['sitelinks'] ) );
 <?php
 
 function userlink( $username ) {
-	$anonymousPattern = '/^~2.+$/i';
-	if ( preg_match( $anonymousPattern, $username ) ) {
+	if ( str_starts_with( $username, '~2' ) ) {
 		$page = "Special:Contributions/{$username}";
 	} else {
 		$username = strtr( $username, ' ', '_' );
